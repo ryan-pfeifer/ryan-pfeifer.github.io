@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ryan Pfeifer — Portfolio</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="logo" href="#top">Ryan Pfeifer</a>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section id="top" class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Computer Engineering &amp; Computer Science — University of Wisconsin&ndash;Madison</p>
+      <h1>Hardware &amp; embedded systems, built from the transistor up.</h1>
+      <p class="hero-sub">
+        I work at the intersection of power electronics, digital design, and firmware —
+        from GaN gate-drive circuits in the lab to FPGA-controlled robots and
+        FreeRTOS-based embedded systems.
+      </p>
+      <div class="hero-links">
+        <a class="btn btn-primary" href="resume.pdf" target="_blank" rel="noopener">Download Resume</a>
+        <a class="btn" href="https://github.com/YOUR-GITHUB-USERNAME" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn" href="https://linkedin.com/in/ryan-j-pfeifer" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="section">
+    <div class="wrap">
+      <h2>About</h2>
+      <p>
+        I'm a rising junior at UW&ndash;Madison studying Computer Engineering and Computer Science.
+        Most of my work lives at the hardware/software boundary — I've designed high-frequency
+        gate-drive circuits for GaN power devices, laid out PCBs in Altium, and written embedded
+        C and SystemVerilog for everything from an autonomous maze-solving robot to a two-player
+        FreeRTOS game. I'm currently a research intern in the Wide-Bandgap Materials and Devices
+        Lab and a member of Badger Solar Racing's Low Voltage team.
+      </p>
+    </div>
+  </section>
+
+  <section id="projects" class="section alt">
+    <div class="wrap">
+      <h2>Projects</h2>
+      <div class="project-grid">
+
+        <article class="project-card">
+          <div class="project-media" aria-hidden="true"><span>Add photo / diagram</span></div>
+          <div class="project-body">
+            <h3>Optically Isolated GaN Gate Drive</h3>
+            <p class="project-role">Research Intern — Wide-Bandgap Materials and Devices Lab</p>
+            <p>
+              Designed and evaluated high-frequency components for a sub-10ns optically isolated
+              gate drive for GaN HEMTs, modeling GaAs phototransistor switching behavior in
+              LTSpice and laying out chip-on-board PCBs in Altium to minimize parasitic
+              inductance. Validated the prototype with custom packaged bare-die parts in a
+              double pulse test.
+            </p>
+            <p class="project-tags">LTSpice · Altium Designer · GaN HEMTs · PCB Design</p>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-media" aria-hidden="true"><span>Add photo / video</span></div>
+          <div class="project-body">
+            <h3>MazeRunner</h3>
+            <p class="project-role">Academic Project</p>
+            <p>
+              An autonomous robot that navigates a prebuilt physical maze, fusing gyroscope and
+              IR sensor data to calculate heading and wall distance for PID motor control. Logic
+              was verified in ModelSim and synthesized to an FPGA with Synopsys Design Compiler.
+            </p>
+            <p class="project-tags">SystemVerilog · ModelSim · FPGA · PID Control</p>
+            <a class="project-link" href="https://github.com/YOUR-GITHUB-USERNAME/mazerunner" target="_blank" rel="noopener">View on GitHub &rarr;</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-media" aria-hidden="true"><span>Add photo / video</span></div>
+          <div class="project-body">
+            <h3>Battleship</h3>
+            <p class="project-role">Academic Project</p>
+            <p>
+              A full two-player implementation of Battleship in C using FreeRTOS on an Infineon
+              microcontroller. Integrated joystick, button, and IMU input, drove an LCD, light
+              sensor, EEPROM, and piezo over SPI and I2C, and handled interboard communication
+              over UART.
+            </p>
+            <p class="project-tags">C · FreeRTOS · SPI · I2C · UART</p>
+            <a class="project-link" href="https://github.com/YOUR-GITHUB-USERNAME/battleship" target="_blank" rel="noopener">View on GitHub &rarr;</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-media" aria-hidden="true"><span>Add photo</span></div>
+          <div class="project-body">
+            <h3>Solar Racing — Lighting Control Board</h3>
+            <p class="project-role">Low Voltage Team Member — Badger Solar Racing</p>
+            <p>
+              Redesigned the car's lighting control board in Altium, adding an E-Fuse and UVLO
+              protection to improve reliability, then hand-assembled and soldered the boards.
+              Collaborated with the firmware team on the CAN communication protocol linking the
+              board into the rest of the car.
+            </p>
+            <p class="project-tags">Altium Designer · CAN Bus · PCB Assembly</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="section">
+    <div class="wrap">
+      <h2>Skills</h2>
+      <div class="skills-grid">
+        <div>
+          <h3>Languages</h3>
+          <p>SystemVerilog, Verilog, C, Java, MATLAB</p>
+        </div>
+        <div>
+          <h3>EDA &amp; Simulation</h3>
+          <p>Altium Designer, LTSpice, ModelSim, Synopsys Design Compiler, Quartus</p>
+        </div>
+        <div>
+          <h3>Protocols &amp; Hardware</h3>
+          <p>SPI, I2C, UART, CAN Bus, FreeRTOS, Oscilloscopes</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section alt">
+    <div class="wrap">
+      <h2>Contact</h2>
+      <p>
+        <a href="mailto:ryan.pfeifer@wisc.edu">ryan.pfeifer@wisc.edu</a> ·
+        <a href="https://linkedin.com/in/ryan-j-pfeifer" target="_blank" rel="noopener">LinkedIn</a> ·
+        <a href="https://github.com/YOUR-GITHUB-USERNAME" target="_blank" rel="noopener">GitHub</a>
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; <span id="year"></span> Ryan Pfeifer</p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
