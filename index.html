@@ -99,18 +99,20 @@
         </article>
 
         <article class="project-card">
-          <div class="project-media" aria-hidden="true"><span>Add photo / video</span></div>
+          <div class="project-media" style="aspect-ratio: 9 / 16; max-width: 240px; margin: 0 auto;">
+            <iframe src="https://www.youtube.com/embed/3ehO3BPGbZQ" title="Battleship demo" style="width: 100%; height: 100%; border: 0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
           <div class="project-body">
             <h3>Battleship</h3>
             <p class="project-role">Academic Project</p>
             <p>
               A full two-player implementation of Battleship in C using FreeRTOS on an Infineon
-              microcontroller. Integrated joystick, button, and IMU input, drove an LCD, light
-              sensor, EEPROM, and piezo over SPI and I2C, and handled interboard communication
-              over UART.
+              microcontroller. Built joystick- and IMU-driven controls for board navigation, drove
+              an LCD display and I/O-expander-based LED indicators over SPI and I2C, and handled
+              real-time interboard synchronization over UART for the two-player game state.
             </p>
             <p class="project-tags">C · FreeRTOS · SPI · I2C · UART</p>
-            <a class="project-link" href="https://github.com/ryan-pfeifer/battleship" target="_blank" rel="noopener">View on GitHub &rarr;</a>
+            <p class="project-note">Source is private per university course policy — happy to walk through the code directly.</p>
           </div>
         </article>
 
