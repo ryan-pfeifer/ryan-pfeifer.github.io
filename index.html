@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ryan Pfeifer | Power electronics and digital design</title>
+<meta name="description" content="Ryan Pfeifer studies Computer Engineering and Computer Science at UW–Madison. GaN gate-drive research, a pipelined RISC-V CPU, FPGA and PCB projects. Incoming Senior Technical Intern at Leonardo DRS.">
+<link rel="canonical" href="https://ryanpfeifer.me/">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#fafaf6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0a0b0d" media="(prefers-color-scheme: dark)">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ryan Pfeifer">
+<meta property="og:title" content="Ryan Pfeifer | Power electronics and digital design">
+<meta property="og:description" content="GaN gate-drive research, a pipelined RISC-V CPU, FPGA and PCB projects. Computer Engineering and Computer Science at UW–Madison.">
+<meta property="og:url" content="https://ryanpfeifer.me/">
+<meta property="og:image" content="https://ryanpfeifer.me/gate-drive-setup.jpg">
+<meta property="og:image:alt" content="Optical double-pulse test setup with fiber-coupled laser modules and a chip-on-board GaN gate drive">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0b0d'/%3E%3Cpath d='M4 22h5V10h8v12h4V10h3v12h4' fill='none' stroke='%23f3d23b' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+<script>
+  (function () {
+    var d = document.documentElement;
+    d.classList.add('js');
+    try {
+      var t = localStorage.getItem('theme');
+      if (t === 'light' || t === 'dark') d.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+<script src="script.js" defer></script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="logo" href="#top" aria-label="Ryan Pfeifer, back to top">
+      <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M4 22h5V10h8v12h4V10h3v12h4"/></svg>
+      <span>Ryan Pfeifer</span>
+    </a>
+    <nav class="site-nav" id="site-nav" aria-label="Primary">
+      <a href="#about">About</a>
+      <a href="#research">Research</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <button class="view-toggle" type="button" role="switch" aria-checked="false" aria-label="Layout view (dark theme)" title="Switch between schematic (light) and layout (dark) view">
+        <span class="vt-sch" aria-hidden="true">SCH</span>
+        <span class="vt-pcb" aria-hidden="true">PCB</span>
+      </button>
+      <button class="nav-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Menu">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="scroll-progress" aria-hidden="true"></div>
+</header>
+
+<main id="main">
+
+  <!-- ============================== HERO ============================== -->
+  <section class="hero" id="top">
+    <div class="hero-bg" aria-hidden="true">
+      <svg class="traces traces-base"></svg>
+      <svg class="traces traces-hot"></svg>
+    </div>
+
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="hero-kicker">Computer Engineering and Computer Science, UW&ndash;Madison</p>
+        <h1>From GaN gate drives to RISC&#8209;V pipelines.</h1>
+        <p class="hero-sub">
+          I design fast gate-drive hardware in a wide-bandgap research lab, and I build
+          digital systems in Verilog and SystemVerilog.
+        </p>
+        <div class="hero-links">
+          <a class="btn btn-primary" href="10_31_26-Resume.pdf" target="_blank" rel="noopener">Download resume</a>
+          <a class="btn" href="https://github.com/ryan-pfeifer" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn" href="https://linkedin.com/in/ryan-j-pfeifer" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+        <dl class="hero-next">
+          <div>
+            <dt>Summer 2027</dt>
+            <dd>Senior Technical Intern, power electronics, Leonardo DRS</dd>
+          </div>
+          <div>
+            <dt>Fall 2027</dt>
+            <dd>Starting an MS focused on ASIC/FPGA design</dd>
+          </div>
+        </dl>
+      </div>
+
+      <figure class="scope" id="scope">
+        <div class="scope-top">
+          <span class="scope-name">Double-pulse test</span>
+          <span class="scope-state" id="scope-state">Run</span>
+        </div>
+        <div class="scope-screen">
+          <canvas id="scope-canvas" role="img" aria-label="Animated oscilloscope display of a modeled double-pulse test: gate voltage, drain voltage and drain current of a GaN transistor. Not measured data."></canvas>
+        </div>
+        <ul class="scope-ch">
+          <li class="c1"><b>1</b>V<sub>GS</sub> 5&nbsp;V/div</li>
+          <li class="c2"><b>2</b>V<sub>DS</sub> 250&nbsp;V/div</li>
+          <li class="c3"><b>3</b>I<sub>D</sub> 10&nbsp;A/div</li>
+          <li class="tb" id="scope-tb">2 µs/div</li>
+        </ul>
+        <p class="scope-meas" id="scope-meas" aria-live="off">Bus 500 V, peak current 25 A</p>
+        <div class="scope-controls">
+          <button type="button" id="scope-run" aria-pressed="true">Stop</button>
+          <button type="button" id="scope-zoom" aria-pressed="false">Zoom into turn-off</button>
+        </div>
+        <figcaption>Modeled waveform, not measured data. Move across the screen to read values.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============================== ABOUT ============================== -->
+  <section class="section" id="about">
+    <div class="wrap about-grid">
+      <div class="about-text reveal">
+        <h2>About</h2>
+        <p>
+          I'm finishing a BS in Computer Engineering and Computer Science at UW&ndash;Madison in
+          summer 2027 and starting an MS that fall, focused on ASIC/FPGA design. In summer 2027
+          I'll join Leonardo DRS as a Senior Technical Intern in power electronics.
+        </p>
+        <p>
+          My work sits on both sides of the gate. In Prof. Chirag Gupta's Wide-Bandgap Materials
+          and Devices Lab I design optically isolated gate drives and laser drivers for GaN
+          devices. In coursework I've built a pipelined RISC-V processor, FPGA robot control in
+          SystemVerilog, and Linux kernel system calls. I also design and assemble PCBs for
+          Badger Solar Racing's Low Voltage team.
+        </p>
+        <p class="about-honors">
+          Dean's Honor List every semester. Two-time Claude and Dora Richardson Scholarship recipient.
+        </p>
+      </div>
+
+      <figure class="timing reveal" role="img" aria-label="Timeline from 2024 to 2028. BS in Computer Engineering and Computer Science from August 2024 to summer 2027. Badger Solar Racing since September 2025. Wide-bandgap lab research since May 2026. Leonardo DRS internship in summer 2027. MS starting fall 2027.">
+        <div class="t-rows">
+          <div class="t-row"><span class="t-label">BS, CompE + CS</span><span class="t-track"><i class="seg seg-bs"></i></span></div>
+          <div class="t-row"><span class="t-label">Badger Solar Racing</span><span class="t-track"><i class="seg seg-live seg-solar"></i></span></div>
+          <div class="t-row"><span class="t-label">Wide-bandgap lab</span><span class="t-track"><i class="seg seg-live seg-lab"></i></span></div>
+          <div class="t-row"><span class="t-label">Leonardo DRS</span><span class="t-track"><i class="seg seg-drs"></i></span></div>
+          <div class="t-row"><span class="t-label">MS, ASIC/FPGA</span><span class="t-track"><i class="seg seg-ms"></i></span></div>
+          <div class="t-row t-axis"><span class="t-label"></span><span class="t-track"><b class="yr y25">2025</b><b class="yr y26">2026</b><b class="yr y27">2027</b><b class="yr y28">2028</b></span></div>
+          <i class="t-future"></i>
+          <i class="t-now"><em>now</em></i>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============================== RESEARCH ============================== -->
+  <section class="section" id="research">
+    <div class="wrap">
+      <header class="section-head reveal">
+        <h2>Research</h2>
+        <p>
+          Ongoing undergraduate research in the Wide-Bandgap Materials and Devices Lab with
+          Prof. Chirag Gupta: switching GaN transistors with light instead of a driver IC.
+        </p>
+      </header>
+
+      <article class="feature reveal">
+        <div class="feature-media">
+          <a class="frame zoom" href="gate-drive-setup.jpg" data-zoom>
+            <img src="gate-drive-setup.jpg" alt="Optical double-pulse test setup with fiber-coupled laser modules and chip-on-board GaN gate drive" loading="lazy" decoding="async">
+          </a>
+          <div class="media-pair">
+            <figure>
+              <a class="frame zoom" href="wempec-dpt-test.jpg" data-zoom>
+                <img src="wempec-dpt-test.jpg" alt="Lab bench with an enclosed double-pulse test fixture, two oscilloscopes showing the two pulses, and bench supplies" loading="lazy" decoding="async">
+              </a>
+              <figcaption>Double-pulse test bench</figcaption>
+            </figure>
+            <figure>
+              <a class="frame zoom" href="spark-award.jpg" data-zoom>
+                <img src="spark-award.jpg" alt="Ryan Pfeifer with Parameswaran Ramanathan, ECE Interim Department Chair, at the SPARK poster symposium" loading="lazy" decoding="async">
+              </a>
+              <figcaption>With Parameswaran Ramanathan, ECE Interim Department Chair</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="feature-body">
+          <h3>Optically isolated GaN gate drive</h3>
+          <p class="role">Undergraduate Researcher, Wide-Bandgap Materials and Devices Lab</p>
+          <p>
+            A discrete, chip-on-board gate drive that switches bare-die GaN HEMTs through optical
+            fiber, targeting sub-10&nbsp;ns V<sub>DS</sub> transitions with full galvanic isolation.
+            I modeled GaAs phototransistor switching in LTspice, laid out the chip-on-board PCBs in
+            Altium to minimize parasitic inductance, and evaluated switching speed with
+            custom-packaged bare-die parts in a double-pulse test.
+          </p>
+          <p>
+            I presented this work at the 2026 ECE SPARK poster symposium and received the Complex
+            Concepts Communicator Award, one of three awards across 31 presenters, for clarity in
+            explaining the research to peers and faculty.
+          </p>
+          <ul class="facts">
+            <li><b>&lt;10 ns</b><span>target V<sub>DS</sub> transition</span></li>
+            <li><b>0.5&ndash;2 nH</b><span>parasitics included in SPICE</span></li>
+            <li><b>1 of 3</b><span>awards, 31 presenters</span></li>
+          </ul>
+          <ul class="tags">
+            <li>LTspice</li><li>Altium Designer</li><li>GaN HEMTs</li><li>Chip-on-board PCB</li><li>Double-pulse test</li>
+          </ul>
+          <p class="links"><a href="SPARK_2026_Ryan_Pfeifer.pdf" target="_blank" rel="noopener">View the SPARK poster (PDF)</a></p>
+        </div>
+      </article>
+
+      <div class="card-grid two">
+
+        <article class="card tilt reveal">
+          <div class="card-media diagram">
+            <svg viewBox="0 0 480 270" role="img" aria-label="Block diagram: a single voltage bus feeds a step-down power board, which feeds three tunable current sources, each driving one optical emitter at 0.2 to 2.5 amps.">
+              <text class="d-text" x="18" y="118">Single</text>
+              <text class="d-text" x="18" y="134">voltage</text>
+              <text class="d-text" x="18" y="150">bus</text>
+              <path class="d-wire flow" d="M70 135H104"/>
+              <rect class="d-box" x="104" y="104" width="104" height="62" rx="6"/>
+              <text class="d-text mid" x="156" y="131">Step-down</text>
+              <text class="d-text mid" x="156" y="147">power board</text>
+              <path class="d-wire flow" d="M208 135H238"/>
+              <path class="d-wire" d="M238 55V215"/>
+              <g>
+                <path class="d-wire flow" d="M238 55H262"/>
+                <rect class="d-box" x="262" y="31" width="122" height="48" rx="6"/>
+                <text class="d-text mid" x="323" y="51">Current source 1</text>
+                <text class="d-num mid" x="323" y="68">0.2&ndash;2.5 A</text>
+                <path class="d-wire flow" d="M384 55H414"/>
+                <path class="d-part" d="M414 44v22l18-11zM432 44v22"/>
+                <path class="d-ray" d="M440 46l12-8M442 54l14-6"/>
+              </g>
+              <g>
+                <path class="d-wire flow" d="M238 135H262"/>
+                <rect class="d-box" x="262" y="111" width="122" height="48" rx="6"/>
+                <text class="d-text mid" x="323" y="131">Current source 2</text>
+                <text class="d-num mid" x="323" y="148">0.2&ndash;2.5 A</text>
+                <path class="d-wire flow" d="M384 135H414"/>
+                <path class="d-part" d="M414 124v22l18-11zM432 124v22"/>
+                <path class="d-ray" d="M440 126l12-8M442 134l14-6"/>
+              </g>
+              <g>
+                <path class="d-wire flow" d="M238 215H262"/>
+                <rect class="d-box" x="262" y="191" width="122" height="48" rx="6"/>
+                <text class="d-text mid" x="323" y="211">Current source 3</text>
+                <text class="d-num mid" x="323" y="228">0.2&ndash;2.5 A</text>
+                <path class="d-wire flow" d="M384 215H414"/>
+                <path class="d-part" d="M414 204v22l18-11zM432 204v22"/>
+                <path class="d-ray" d="M440 206l12-8M442 214l14-6"/>
+              </g>
+            </svg>
+          </div>
+          <div class="card-body">
+            <h3>Three-channel tunable GaN laser driver</h3>
+            <p class="role">Undergraduate Researcher, Wide-Bandgap Materials and Devices Lab</p>
+            <p>
+              A 4-layer Altium board, paired with a step-down power board, that sets
+              0.2&ndash;2.5&nbsp;A per channel from a single voltage bus. It removed three external
+              current generators and six input ports from the test setup, and it replicated prior
+              results on a far smaller board than the off-the-shelf EPC drivers it replaced.
+            </p>
+            <ul class="facts">
+              <li><b>0.2&ndash;2.5 A</b><span>per channel, tunable</span></li>
+              <li><b>3 fewer</b><span>external current generators</span></li>
+              <li><b>6 fewer</b><span>input ports</span></li>
+            </ul>
+            <ul class="tags">
+              <li>Altium Designer</li><li>4-layer PCB</li><li>OPA192</li><li>INA241A</li><li>SiRA04DP</li><li>TPS62130</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="card tilt reveal">
+          <div class="card-media diagram">
+            <svg viewBox="0 0 480 270" role="img" aria-label="Cross-section of a sandwich PCB: two red LEDs on the upper board shine down across an 8 millimeter gap onto a photovoltaic cell on the lower board, which feeds the gate-drive rail, a phototransistor totem pole, and a GaN FET.">
+              <text class="d-text" x="92" y="30">LED board, two hyper-red LEDs</text>
+              <rect class="d-pcb" x="92" y="40" width="296" height="13" rx="2"/>
+              <rect class="d-led" x="166" y="53" width="34" height="13" rx="2"/>
+              <rect class="d-led" x="280" y="53" width="34" height="13" rx="2"/>
+              <path class="d-cone" d="M170 66h26l38 106H132z"/>
+              <path class="d-cone" d="M284 66h26l38 106H246z"/>
+              <path class="d-photon" d="M176 70l-20 98M183 70v98M190 70l20 98M290 70l-20 98M297 70v98M304 70l20 98"/>
+              <rect class="d-pv" x="118" y="172" width="244" height="12" rx="2"/>
+              <rect class="d-pcb" x="92" y="184" width="296" height="13" rx="2"/>
+              <path class="d-dim" d="M408 53v131M402 53h12M402 184h12"/>
+              <text class="d-num" x="418" y="123">≈ 8 mm</text>
+              <path class="d-wire flow" d="M104 197v17"/>
+              <rect class="d-box" x="24" y="214" width="96" height="40" rx="6"/>
+              <text class="d-text mid" x="72" y="239">PV cell</text>
+              <path class="d-wire flow" d="M120 234h16"/>
+              <rect class="d-box" x="136" y="214" width="96" height="40" rx="6"/>
+              <text class="d-text mid" x="184" y="231">Gate-drive</text>
+              <text class="d-text mid" x="184" y="246">rail + C</text>
+              <path class="d-wire flow" d="M232 234h16"/>
+              <rect class="d-box" x="248" y="214" width="112" height="40" rx="6"/>
+              <text class="d-text mid" x="304" y="231">Phototransistor</text>
+              <text class="d-text mid" x="304" y="246">totem pole</text>
+              <path class="d-wire flow" d="M360 234h16"/>
+              <rect class="d-box" x="376" y="214" width="82" height="40" rx="6"/>
+              <text class="d-text mid" x="417" y="239">GaN FET</text>
+            </svg>
+          </div>
+          <div class="card-body">
+            <h3>Optically powered GaN gate drive <span class="badge">In progress</span></h3>
+            <p class="role">Undergraduate Researcher, Wide-Bandgap Materials and Devices Lab</p>
+            <p>
+              The next step removes the electrical supply from the gate side entirely. A sandwich
+              PCB holds two OSRAM hyper-red LEDs about 8&nbsp;mm above an ANYSOLAR SM500K12L PV cell.
+              The PV cell, with parallel capacitance, supplies the gate-drive rail, and a totem pole
+              of custom PAAS phototransistors drives the gate of an Innoscience INN650N080BS bare-die
+              GaN FET.
+            </p>
+            <ul class="tags">
+              <li>Altium Designer</li><li>Optical power delivery</li><li>Bare-die GaN</li><li>Sandwich PCB</li>
+            </ul>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== PROJECTS ============================== -->
+  <section class="section" id="projects">
+    <div class="wrap">
+      <header class="section-head reveal">
+        <h2>Projects</h2>
+        <p>Digital design, boards that had to survive a car, and systems code.</p>
+      </header>
+
+      <article class="feature feature-cpu reveal">
+        <div class="feature-body">
+          <h3>Pipelined RISC-V CPU</h3>
+          <p class="role">Academic project, team of three</p>
+          <p>
+            A 5-stage pipelined RV32I processor in Verilog. Data hazards are handled with EX/MEM and
+            MEM/WB forwarding plus a one-cycle stall on load-use. Branches are predicted not taken
+            and resolved in EX, with a pipeline flush on redirect.
+          </p>
+          <ul class="tags">
+            <li>Verilog</li><li>RV32I</li><li>Data forwarding</li><li>Hazard detection</li><li>Branch prediction</li>
+          </ul>
+          <p class="links"><a href="RISC-V_schematic.pdf" target="_blank" rel="noopener">View the datapath schematic (PDF)</a></p>
+        </div>
+
+        <div class="pipe" id="pipeline">
+          <div class="pipe-head">
+            <p class="pipe-title">Step through the pipeline. This model follows the same forwarding, stall and flush rules as the RTL.</p>
+            <div class="pipe-controls">
+              <button type="button" id="pipe-play" aria-pressed="true">Pause</button>
+              <button type="button" id="pipe-step">Step</button>
+              <button type="button" id="pipe-reset">Reset</button>
+              <span class="pipe-cycle">Cycle <b id="pipe-cycle">1</b></span>
+            </div>
+          </div>
+
+          <div class="pipe-stages">
+            <div class="stage"><div class="stage-top"><b>IF</b><span>Fetch</span></div><div class="stage-inst"></div><div class="stage-flag"></div></div>
+            <div class="stage" data-reg="IF/ID"><div class="stage-top"><b>ID</b><span>Decode</span></div><div class="stage-inst"></div><div class="stage-flag"></div></div>
+            <div class="stage" data-reg="ID/EX"><div class="stage-top"><b>EX</b><span>Execute</span></div><div class="stage-inst"></div><div class="stage-flag"></div></div>
+            <div class="stage" data-reg="EX/MEM"><div class="stage-top"><b>MEM</b><span>Memory</span></div><div class="stage-inst"></div><div class="stage-flag"></div></div>
+            <div class="stage" data-reg="MEM/WB"><div class="stage-top"><b>WB</b><span>Writeback</span></div><div class="stage-inst"></div><div class="stage-flag"></div></div>
+            <svg class="pipe-wires" aria-hidden="true"></svg>
+          </div>
+
+          <p class="pipe-note" id="pipe-note" aria-live="polite"></p>
+          <ul class="pipe-signals" id="pipe-signals" aria-label="Control signals this cycle"></ul>
+
+          <div class="pipe-lower">
+            <div class="pipe-chart-wrap" tabindex="0" role="group" aria-label="Pipeline diagram, scrollable">
+              <table class="pipe-chart" id="pipe-chart"></table>
+            </div>
+            <ul class="pipe-regs" id="pipe-regs" aria-label="Register file and memory"></ul>
+          </div>
+        </div>
+      </article>
+
+      <article class="feature feature-solar reveal">
+        <div class="feature-media">
+          <a class="frame zoom" href="lighting-board.jpg" data-zoom>
+            <img src="lighting-board.jpg" alt="3D render of the redesigned lighting control board PCB in Altium Designer" loading="lazy" decoding="async">
+          </a>
+          <figure>
+            <a class="frame wide zoom" href="solar-car-picture.png" data-zoom>
+              <img src="solar-car-picture.png" alt="Badger Solar Racing team members around the solar car on a track" loading="lazy" decoding="async">
+            </a>
+            <figcaption>Badger Solar Racing's car at the track</figcaption>
+          </figure>
+        </div>
+        <div class="feature-body">
+          <h3>Solar Racing: lighting control board</h3>
+          <p class="role">Low Voltage Team Member, Badger Solar Racing</p>
+          <dl class="pfr">
+            <div>
+              <dt>Problem</dt>
+              <dd>6 of 7 first-build boards failed when the 12&nbsp;V header shorted to the adjacent 5&nbsp;V test header.</dd>
+            </div>
+            <div>
+              <dt>Fix</dt>
+              <dd>I separated the headers and added an eFuse and overvoltage protection in the Altium redesign, then hand-assembled and soldered the new boards.</dd>
+            </div>
+            <div>
+              <dt>Result</dt>
+              <dd>The redesign ran failure-free through several full-vehicle trial assemblies and passed the road safety check.</dd>
+            </div>
+          </dl>
+          <p>
+            I also worked with the firmware team on the CAN protocol that links the board to the
+            rest of the car.
+          </p>
+          <ul class="tags">
+            <li>Altium Designer</li><li>eFuse and OVP</li><li>CAN bus</li><li>PCB assembly</li>
+          </ul>
+          <p class="links"><a href="https://badgersolarracing.org/" target="_blank" rel="noopener">Badger Solar Racing</a></p>
+        </div>
+      </article>
+
+      <div class="card-grid three">
+
+        <article class="card tilt reveal">
+          <a class="card-media yt" href="https://www.youtube.com/watch?v=oxao9BG4Aj4" data-yt="oxao9BG4Aj4" data-title="MazeRunner demo" target="_blank" rel="noopener" aria-label="Play the MazeRunner demo video">
+            <img class="yt-bg" src="https://i.ytimg.com/vi/oxao9BG4Aj4/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+            <img class="yt-thumb" src="https://i.ytimg.com/vi/oxao9BG4Aj4/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+            <span class="yt-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+          </a>
+          <div class="card-body">
+            <h3>MazeRunner</h3>
+            <p class="role">Academic project</p>
+            <p>
+              An autonomous robot that navigates a prebuilt physical maze, fusing gyroscope and IR
+              sensor data to calculate heading and wall distance for PID motor control. Logic was
+              verified in ModelSim and synthesized to an FPGA with Synopsys Design Compiler.
+            </p>
+            <ul class="tags">
+              <li>SystemVerilog</li><li>ModelSim</li><li>FPGA</li><li>PID control</li>
+            </ul>
+            <p class="links"><a href="https://github.com/ryan-pfeifer/mazerunner" target="_blank" rel="noopener">View on GitHub</a></p>
+          </div>
+        </article>
+
+        <article class="card tilt reveal">
+          <div class="card-media diagram">
+            <svg viewBox="0 0 360 202" role="img" aria-label="Diagram: a calling process in user space invokes a custom system call; the kernel reads or writes memory in a separate target process.">
+              <text class="d-text" x="14" y="22">User space</text>
+              <rect class="d-box" x="22" y="32" width="138" height="56" rx="6"/>
+              <text class="d-text mid" x="91" y="57">Calling process</text>
+              <text class="d-num mid" x="91" y="74">buffer</text>
+              <rect class="d-box" x="200" y="32" width="138" height="56" rx="6"/>
+              <text class="d-text mid" x="269" y="57">Target process</text>
+              <text class="d-num mid" x="269" y="74">address space</text>
+              <path class="d-dim dashed" d="M10 113H350"/>
+              <text class="d-text" x="14" y="132">Kernel</text>
+              <rect class="d-box" x="70" y="141" width="220" height="50" rx="6"/>
+              <text class="d-text mid" x="180" y="163">Custom system calls</text>
+              <text class="d-num mid" x="180" y="180">read / write process memory</text>
+              <path class="d-wire flow" d="M112 88V141"/>
+              <text class="d-num" x="119" y="106">syscall</text>
+              <path class="d-wire flow" d="M248 141V88"/>
+              <text class="d-num" x="255" y="106">copy</text>
+            </svg>
+          </div>
+          <div class="card-body">
+            <h3>Linux kernel syscalls for cross-process memory</h3>
+            <p class="role">Academic project, CS 537 Operating Systems</p>
+            <p>
+              Custom Linux kernel system calls that let one process read and write another
+              process's memory.
+            </p>
+            <ul class="tags">
+              <li>C</li><li>Linux kernel</li><li>System calls</li><li>Virtual memory</li>
+            </ul>
+            <p class="note">Source is private per university course policy. Happy to walk through the code directly.</p>
+          </div>
+        </article>
+
+        <article class="card tilt reveal">
+          <a class="card-media yt" href="https://www.youtube.com/watch?v=3ehO3BPGbZQ" data-yt="3ehO3BPGbZQ" data-title="Battleship demo" target="_blank" rel="noopener" aria-label="Play the Battleship demo video">
+            <img class="yt-bg" src="https://i.ytimg.com/vi/3ehO3BPGbZQ/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+            <img class="yt-thumb" src="https://i.ytimg.com/vi/3ehO3BPGbZQ/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+            <span class="yt-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+          </a>
+          <div class="card-body">
+            <h3>Battleship</h3>
+            <p class="role">Academic project</p>
+            <p>
+              A full two-player implementation of Battleship in C using FreeRTOS on an Infineon
+              microcontroller. Built joystick- and IMU-driven controls for board navigation, drove
+              an LCD display and I/O-expander-based LED indicators over SPI and I2C, and handled
+              real-time interboard synchronization over UART for the two-player game state.
+            </p>
+            <ul class="tags">
+              <li>C</li><li>FreeRTOS</li><li>SPI</li><li>I2C</li><li>UART</li>
+            </ul>
+            <p class="note">Source is private per university course policy. Happy to walk through the code directly.</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== SKILLS ============================== -->
+  <section class="section" id="skills">
+    <div class="wrap">
+      <header class="section-head reveal">
+        <h2>Skills</h2>
+      </header>
+      <dl class="skills reveal">
+        <div>
+          <dt>Languages and RTL</dt>
+          <dd>SystemVerilog, Verilog, C, Java, MATLAB, Git, Linux/Unix</dd>
+        </div>
+        <div>
+          <dt>EDA and simulation</dt>
+          <dd>Altium Designer, LTspice, ModelSim, Synopsys Design Compiler, Cadence, Quartus</dd>
+        </div>
+        <div>
+          <dt>Protocols and embedded</dt>
+          <dd>SPI, I2C, UART, CAN bus, FreeRTOS</dd>
+        </div>
+        <div>
+          <dt>Lab and bench</dt>
+          <dd>Oscilloscopes, double-pulse testing, PCB assembly and soldering</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============================== CONTACT ============================== -->
+  <section class="section" id="contact">
+    <div class="wrap contact reveal">
+      <h2>Contact</h2>
+      <p>The fastest way to reach me is email.</p>
+      <p class="contact-email"><a href="mailto:ryan.pfeifer@wisc.edu">ryan.pfeifer@wisc.edu</a></p>
+      <div class="hero-links">
+        <a class="btn" href="https://linkedin.com/in/ryan-j-pfeifer" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn" href="https://github.com/ryan-pfeifer" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn" href="10_31_26-Resume.pdf" target="_blank" rel="noopener">Resume (PDF)</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <dl class="title-block">
+      <div class="tb-title"><dt>Title</dt><dd>Ryan Pfeifer, portfolio</dd></div>
+      <div><dt>Drawn by</dt><dd>R. Pfeifer</dd></div>
+      <div><dt>Rev</dt><dd id="rev">2026-11</dd></div>
+      <div><dt>Sheet</dt><dd>1 of 1</dd></div>
+      <div><dt>&copy;</dt><dd><span id="year">2026</span></dd></div>
+    </dl>
+  </div>
+</footer>
+
+<dialog class="lightbox" id="lightbox" aria-label="Media viewer">
+  <button class="lightbox-close" type="button" aria-label="Close">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <div class="lightbox-body"></div>
+</dialog>
+
+</body>
+</html>
